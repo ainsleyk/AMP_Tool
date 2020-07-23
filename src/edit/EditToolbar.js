@@ -14,7 +14,7 @@ L.EditToolbar = L.Toolbar.extend({
 
 				fill: true,
 				fillColor: '#fe57a1',
-				fillOpacity: 0.1,
+				fillOpacity: 0.5,
 
 				// Whether to user the existing layers color
 				maintainColor: false

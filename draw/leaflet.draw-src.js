@@ -2700,6 +2700,16 @@ L.DrawToolbar = L.Toolbar.extend({
 			}
 		}
 
+		// initialize: function (color) {
+		// 	// Ensure that the colors are merged correctly since L.extend is only shallow
+		// 	for (var type in this.color) {
+		// 		if (this.color.hasOwnProperty(type)) {
+		// 			if (color[type]) {
+		// 				options[type] = L.extend({}, this.color[type], options[type]);
+		// 			}
+		// 		}
+		// 	}
+
 		this._toolbarClass = 'leaflet-draw-draw';
 		L.Toolbar.prototype.initialize.call(this, options);
 	},
