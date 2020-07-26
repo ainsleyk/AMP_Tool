@@ -155,6 +155,7 @@ map.bounds = [],
 // **************************************************************************
 // Initialise the draw control and pass it the FeatureGroup of editable layers
 // GREEN
+var controlOnMap = false;
 var greenDrawnItems = new L.FeatureGroup();
 map.addLayer(greenDrawnItems);
 
@@ -195,18 +196,44 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
             remove: false
         }
     });
-    map.addControl(drawControlGreen);
+    // map.addControl(drawControlGreen);
 
-    map.on('draw:created', function (green) {
-        var type = green.layerType,
-            layer = green.layer;
-
-        // if (type === 'marker') {
-        //     layer.bindPopup('A popup!');
-        // }
-
-        greenDrawnItems.addLayer(layer);
+    map.addEventListener("draw:created", function(green) {
+        green.layer.addTo(greenDrawnItems);
+        greenDrawnItems.eachLayer(function(layer) {
+            let geojson = JSON.stringify(layer.toGeoJSON().geometry);
+            console.log(geojson);
+        });
     });
+
+
+
+    // // Function to add the draw control to the map to start editing
+    // function startEdits(){
+    //   if(controlOnMap == true){
+    //     map.removeControl(drawControlGreen);
+    //     controlOnMap = false;
+    //   }
+    //   map.addControl(drawControlGreen);
+    //   controlOnMap = true;
+    // };
+    //
+    // // Function to remove the draw control from the map
+    // function stopEdits(){
+    //   map.removeControl(drawControlGreen);
+    //   controlOnMap = false;
+    // };
+
+    // map.on('draw:created', function (green) {
+    //     var type = green.layerType,
+    //         layer = green.layer;
+    //
+    //     // if (type === 'marker') {
+    //     //     layer.bindPopup('A popup!');
+    //     // }
+    //
+    //     greenDrawnItems.addLayer(layer);
+    // });
 
     // map.on('draw:edited', function (green) {
     //     var layers = green.layers;
@@ -272,6 +299,10 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
            });
            console.log("Edited " + countOfEditedLayers + " layers");
        });
+
+
+
+
 
 
 // ****************************************************************************
@@ -394,3 +425,136 @@ L.drawLocal.draw.toolbar.buttons.polylineRed = 'Trace streets!';
           });
           console.log("Edited " + countOfEditedLayers + " layers");
       });
+
+
+// var allControl = {drawControlGreen, drawControlBlue, drawControlRed, drawControlBlack}
+      // Function to add the draw control to the map to start editing
+      function startEdits(){
+        if(controlOnMap == true){
+          map.removeControl(drawControlGreen);
+          controlOnMap = false;
+        }
+        map.addControl(drawControlGreen);
+        controlOnMap = true;
+      };
+
+      // Function to remove the draw control from the map
+      function stopEdits(){
+        map.removeControl(allControl);
+        controlOnMap = false;
+      };
+
+// Modal and submit
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// Send to set data. Will this take everything tho. Very important Ainsley!
+document.getElementById("submit").addEventListener("click", setData);
+// document.getElementById("submit").addEventListener("click", setDataBlue);???
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+$("form :input").change(function() {
+    console.log($(this).closest('form').serialize());
+});
+
+
+
+
+
+
+
+    // Submit data to the PHP using a jQuery Post method
+    var submitToProxy = function(q){
+      $.post("Fresh/touchdraw/AMP_Tool/php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
+        qurl:q,
+        cache: false,
+        timeStamp: new Date().getTime()
+      }, function(data) {
+        console.log(data);
+        refreshLayer();
+      })
+    };
+
+// Set data
+// how to do it for each dranItem? just repeat the function?
+
+function setData() {
+
+    // Get user name and description
+    let enteredSchool = document.getElementById("school").value;
+    let enteredAge = document.getElementById("age").value;
+    let enteredGender = document.getElementById("gender").value;
+    let enteredRace = document.getElementById("race").value;
+    let enteredAfterschool = document.getElementById("afterschool").value;
+    let enteredFeel = document.getElementById("feel").value;
+    // For each drawn layer
+    greenDrawnItems.eachLayer(function(layer) {
+
+        // Create SQL expression to insert layer
+            let drawing = JSON.stringify(layer.toGeoJSON().geometry);
+            let sql =
+                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel) " +
+                "VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
+                drawing + "'), 4326), '" + //4326 WGS84 projection
+                enteredSchool + "', '" +
+                enteredAge + "', '" +
+                enteredGender + "', '" +
+                enteredRace + "', '" +
+                enteredAfterschool + "', '" +
+                enteredFeel + "')";
+                submitToProxy(sql);
+              console.log("Feature has been submitted to the Proxy");
+            // console.log(sql);
+
+
+
+
+
+            // Send the data
+    //         fetch("https://ainsleyk.carto.com/api/v2/sql?", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/x-www-form-urlencoded"
+    //             },
+    //             body: "q=" + encodeURI(sql)
+    //         })
+    //         .then(function(response) {
+    //             return response.json();
+    //         })
+    //         .then(function(data) {
+    //             console.log("Data saved:", data);
+    //         })
+    //         .catch(function(error) {
+    //             console.log("Problem saving the data:", error);
+    //         });
+    //
+    });
+};
+
+var form = document.getElementById("myModal");
+function handleForm(event) { event.preventDefault(); }
+form.addEventListener('submit', handleForm);

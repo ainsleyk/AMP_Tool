@@ -47,12 +47,13 @@
 </head>
 <body>
 	<div id="map"></div>
-    <!-- No idea what this does but v e r y important -->
-      <!-- <button id="changeColor">Rectangle - Blue</button> -->
 
+
+      <input type="button" id="myBtnStart" onclick="startEdits()" value="START">
+      <input type="button" id="myBtn" onclick="startEdits()" value="FIN">
 
       <!-- Trigger/Open The Modal -->
-      <button id="myBtn"><b>DONE </b></button>
+      <!-- <button id="myBtn"><b>DONE </b></button> -->
 
       <!-- The Modal -->
       <div id="myModal" class="modal">
@@ -133,7 +134,7 @@
                     <textarea rows="4" cols="50" id="feel" name="feel" maxlength="150"></textarea><br><br>
                   </p>
 
-                <p><input type="submit" value="FINISHED!" ></p>
+                <p><input type="submit" id="submit" value="FINISHED!" ></p>
 
             </form>
           </div>
@@ -145,7 +146,7 @@
       </div>
 
 </body>
-    <script src="test.js"></script>
+    <script src="demoform.js"></script>
 
 <script src="touchdraw.js"></script>
 
