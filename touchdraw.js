@@ -486,18 +486,18 @@ $("form :input").change(function() {
 
 
 
-
-    // Submit data to the PHP using a jQuery Post method
-    var submitToProxy = function(q){
-      $.post("Fresh/touchdraw/AMP_Tool/php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
-        qurl:q,
-        cache: false,
-        timeStamp: new Date().getTime()
-      }, function(data) {
-        console.log(data);
-        refreshLayer();
-      })
-    };
+    // 
+    // // Submit data to the PHP using a jQuery Post method
+    // var submitToProxy = function(q){
+    //   $.post("Fresh/touchdraw/AMP_Tool/php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
+    //     qurl:q,
+    //     cache: false,
+    //     timeStamp: new Date().getTime()
+    //   }, function(data) {
+    //     console.log(data);
+    //     refreshLayer();
+    //   })
+    // };
 
 // Set data
 // how to do it for each dranItem? just repeat the function?
@@ -526,32 +526,32 @@ function setData() {
                 enteredRace + "', '" +
                 enteredAfterschool + "', '" +
                 enteredFeel + "')";
-                submitToProxy(sql);
-              console.log("Feature has been submitted to the Proxy");
-            // console.log(sql);
+              //   submitToProxy(sql);
+              // console.log("Feature has been submitted to the Proxy");
+            console.log(sql);
 
 
 
 
 
             // Send the data
-    //         fetch("https://ainsleyk.carto.com/api/v2/sql?", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/x-www-form-urlencoded"
-    //             },
-    //             body: "q=" + encodeURI(sql)
-    //         })
-    //         .then(function(response) {
-    //             return response.json();
-    //         })
-    //         .then(function(data) {
-    //             console.log("Data saved:", data);
-    //         })
-    //         .catch(function(error) {
-    //             console.log("Problem saving the data:", error);
-    //         });
-    //
+            fetch("https://ainsleyk.carto.com/api/v2/sql?", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "q=" + encodeURI(sql)
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log("Data saved:", data);
+            })
+            .catch(function(error) {
+                console.log("Problem saving the data:", error);
+            });
+
     });
 };
 
