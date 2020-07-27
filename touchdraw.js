@@ -477,16 +477,16 @@ window.onclick = function(event) {
 }
 
 
-$("form :input").change(function() {
-    console.log($(this).closest('form').serialize());
-});
+// $("form :input").change(function() {
+//     console.log($(this).closest('form').serialize());
+// });
 
 
 
 
 
 
-    // 
+    //
     // // Submit data to the PHP using a jQuery Post method
     // var submitToProxy = function(q){
     //   $.post("Fresh/touchdraw/AMP_Tool/php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
