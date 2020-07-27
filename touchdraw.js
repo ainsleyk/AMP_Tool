@@ -540,7 +540,6 @@ function setData() {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                dataType: json,
                 body: "q=" + encodeURI(sql)
             })
             .then(function(response) {
