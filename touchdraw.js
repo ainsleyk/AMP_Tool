@@ -477,9 +477,9 @@ window.onclick = function(event) {
 }
 
 
-// $("form :input").change(function() {
-//     console.log($(this).closest('form').serialize());
-// });
+$("form :input").change(function() {
+    console.log($(this).closest('form').serialize());
+});
 
 
 
@@ -540,6 +540,7 @@ function setData() {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
+                dataType: json,
                 body: "q=" + encodeURI(sql)
             })
             .then(function(response) {
