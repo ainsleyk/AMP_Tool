@@ -200,8 +200,8 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
 
     map.addEventListener("draw:created", function(green) {
         green.layer.addTo(greenDrawnItems);
-        greenDrawnItems.eachLayer(function(layer) {
-            let geojson = JSON.stringify(layer.toGeoJSON().geometry);
+        greenDrawnItems.eachLayer(function(greenLayer) {
+            let geojson = JSON.stringify(greenLayer.toGeoJSON().geometry);
             console.log(geojson);
         });
     });
@@ -519,12 +519,12 @@ function setData() {
     let enteredFeel = document.getElementById("feel").value;
     let enteredColor = "green"
     // For each drawn layer
-    greenDrawnItems.eachLayer(function(layer) {
+    greenDrawnItems.eachLayer(function(greenLayer) {
 
         // Create SQL expression to insert layer
-            let drawing = JSON.stringify(layer.toGeoJSON().geometry);
+            let drawing = JSON.stringify(greenLayer.toGeoJSON().geometry);
             let sql =
-                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel, color) " +
+                "INSERT INTO amp_tool (the_geom, school, gender, race, after_school, feel, color) " +
                 "VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
                 drawing + "'), 4326), '" + //4326 WGS84 projection
                 enteredSchool + "', '" +
