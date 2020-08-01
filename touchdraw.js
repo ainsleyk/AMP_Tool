@@ -427,6 +427,11 @@ L.drawLocal.draw.toolbar.buttons.polylineRed = 'Trace streets!';
       });
 
 
+
+
+// if type or layer == red.layertype log red
+// if that works then if layer == greenDrawnItems? then feature.properties.color= green appeneded in some way
+
 // var allControl = {drawControlGreen, drawControlBlue, drawControlRed, drawControlBlack}
       // Function to add the draw control to the map to start editing
       function startEdits(){
@@ -506,26 +511,28 @@ function setData() {
 
     // Get user name and description
     let enteredSchool = document.getElementById("school").value;
-    let enteredAge = document.getElementById("age").value;
+    // let enteredAge = document.getElementById("age").value;
     let enteredGender = document.getElementById("gender").value;
     let enteredRace = document.getElementById("race").value;
     let enteredAfterschool = document.getElementById("afterschool").value;
     let enteredFeel = document.getElementById("feel").value;
+    let enteredColor = "green"
     // For each drawn layer
     greenDrawnItems.eachLayer(function(layer) {
 
         // Create SQL expression to insert layer
             let drawing = JSON.stringify(layer.toGeoJSON().geometry);
             let sql =
-                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel) " +
+                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel, color) " +
                 "VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
                 drawing + "'), 4326), '" + //4326 WGS84 projection
                 enteredSchool + "', '" +
-                enteredAge + "', '" +
+                // enteredAge + "', '" +
                 enteredGender + "', '" +
                 enteredRace + "', '" +
                 enteredAfterschool + "', '" +
-                enteredFeel + "')";
+                enteredFeel + "', '" +
+                enteredColor + "')";
               //   submitToProxy(sql);
               // console.log("Feature has been submitted to the Proxy");
             console.log(sql);
