@@ -507,6 +507,7 @@ $("form :input").change(function() {
 // Set data
 // how to do it for each dranItem? just repeat the function?
 
+
 function setData() {
 
     // Get user name and description
