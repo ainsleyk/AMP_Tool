@@ -10,50 +10,15 @@
 
     <script src="leaflet/leaflet-src.js"></script>
     <script src="draw/leaflet.draw-src.js"></script>
-    <!-- <script src="src/Leaflet.draw.js"></script> -->
     <script src="EasyButton\easy-button.js"></script>
-
-    <!-- <script src="src/edit/handler/Edit.Poly.js"></script>
-    <script src="src/edit/handler/Edit.SimpleShape.js"></script>
-    <script src="src/edit/handler/Edit.Circle.js"></script>
-    <script src="src/edit/handler/Edit.Rectangle.js"></script>
-
-    <script src="src/draw/handler/Draw.Feature.js"></script>
-    <script src="src/draw/handler/Draw.Polyline.js"></script>
-    <script src="src/draw/handler/Draw.Polygon.js"></script>
-    <script src="src/draw/handler/Draw.SimpleShape.js"></script>
-    <script src="src/draw/handler/Draw.Rectangle.js"></script>
-    <script src="src/draw/handler/Draw.Circle.js"></script>
-    <script src="src/draw/handler/Draw.Marker.js"></script> -->
-
-    <!-- <script src="src/ext/TouchEvents.js"></script>
-    <script src="src/ext/LatLngUtil.js"></script>
-    <script src="src/ext/GeometryUtil.js"></script>
-    <script src="src/ext/LineUtil.Intersect.js"></script>
-    <script src="src/ext/Polyline.Intersect.js"></script>
-    <script src="src/ext/Polygon.Intersect.js"></script> -->
-
-    <!-- <script src="src/Control.Draw.js"></script>
-    <script src="src/Tooltip.js"></script>
-    <script src="src/Toolbar.js"></script>
-
-    <script src="src/draw/DrawToolbar.js"></script>
-    <script src="src/edit/EditToolbar.js"></script>
-    <script src="src/edit/handler/EditToolbar.Edit.js"></script>
-    <script src="src/edit/handler/EditToolbar.Delete.js"></script> -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
 	<div id="map"></div>
 
-
-      <input type="button" id="myBtnStart" onclick="startEdits()" value="START">
-      <input type="button" id="myBtn" onclick="startEdits()" value="FIN">
-
       <!-- Trigger/Open The Modal -->
-      <!-- <button id="myBtn"><b>DONE </b></button> -->
+      <button id="myBtn"><b>NEXT</b></button>
 
       <!-- The Modal -->
       <div id="myModal" class="modal">
@@ -66,88 +31,64 @@
           </div>
           <div class="modal-body">
             <form>
-              <p><b><div id= "school"> What school do you go to?</b>
+              <feildset>
+                <p><label for="school"><b> What school do you go to?</b></br>
+                  <select class="custom-select" name="school" id="school">
+                  <option disable selected value =""> Select one </option>
+                  <option value= "linclon"> Lincoln </option>
+                  <option value= "firstCreek"> First Creek </option>
+                  <option value= "stweart"> Stweart </option>
+                  <option value= "giaudrone"> Giaudrone </option>
+                </select></p>
+
+                <p><label for="age"><b> How old are you?</b></br>
+                  <select class="custom-select" name="age" id="age">
+                  <option disable selected value =""> Select one </option>
+                  <option value= "11-12"> 11-12 </option>
+                  <option value= "13-14"> 13-14 </option>
+                  <option value= "15-16"> 15-16 </option>
+                  <option value= "17-18"> 17-18 </option>
+                </select>
+              </feildset></p>
+
+                <p><label for="gender"><b> Gender: as you identify? </b></br>
+                  <select class="custom-select" name="gender" id="gender">
+                  <option disable selected value =""> Select one </option>
+                  <option value= "male"> Male </option>
+                  <option value= "female"> Female </option>
+                  <option value= "nonbinary"> Nonbinary </option>
+                </select>
+              </feildset></p>
+
+              <p><label for="race"><b> Race/Ethnicity: as you identify? </b></br>
+                <select class="custom-select" name="race" id="race">
+                <option disable selected value =""> Select one </option>
+                <option value= "africanAmerican"> African American </option>
+                <option value= "americanIndian"> American Indian </option>
+                <option value= "asian"> Asian </option>
+                <option value= "hispanic"> Hispanic </option>
+                <option value= "pacificIslander"> Pacific Islander </option>
+                <option value= "white"> White </option>
+              </select>
+            </feildset></p>
+
+              <p><b>What do you do in the two to three hours immediately after school?</b>
                 <br>
-                  <input type="radio"  name="lincoln" value="lincoln">
-                      <label for="lincoln">Lincoln</label>
-                  <input type="radio"  name="first creek" value="first creek">
-                      <label for="first creek">First Creek</label><br>
-                  <input type="radio"  name="stewart" value="stewart">
-                      <label for="stewart">Stewart</label>
-                  <input type="radio"  name="giaudrone" value="giaudrone">
-                    <label for="giaudrone">Giaudrone</label><br>
-                  </div>
-                  </p>
+                <textarea rows="4" cols="50" id="afterschool" name="afterschool"  maxlength="150"></textarea>
+              </p>
 
-                <p><b>How old are you?</b>
-                  <br>
-                    <input type="radio" name="age" id="11-12" value="11-12">
-                        <label for="11-12">11-12</label>
-                    <input type="radio" name="age" id="13-14" value="13-14">
-                        <label for="13-14">13-14</label>
-                        <br>
-                    <input type="radio" name="age" id="15-16" value="15-16">
-                        <label for="15-16">15-16</label>
-                    <input type="radio" name="age" id="17-18" value="17-18">
-                      <label for="17-18">17-18</label>
-                      <br>
-                    </p>
+              <b>How do you feel about where you are and what you're doing after afterschool?</b>
+                <br>
+                <textarea rows="4" cols="50" id="feel" name="feel" maxlength="150"></textarea><br><br>
 
-                <p><b>Gender: as you identify?</b>
-                  <br>
-                    <input type="radio" id="gender" name="male" value="male">
-                        <label for="male">Male</label>
-                    <input type="radio" id="gender" name="female" value="female">
-                        <label for="female">Female</label>
-                    <input type="radio" id="gender" name="nonbinary" value="nonbinary">
-                        <label for="nonbinary">Nonbinary</label><br>
-                    </p>
 
-                <p><b>Race/Ethnicity: as you identify?</b>
-                  <br>
-                    <input type="checkbox" id="race" name="african american" value="african american">
-                        <label for="african american">African American</label>
-                    <input type="checkbox" id="race" name="american indian" value="american indian">
-                        <label for="american indian">American Indian</label>
-                        <br>
-                    <input type="checkbox" id="race" name="asian" value="asian">
-                        <label for="asian">Asian</label>
-                    <input type="checkbox" id="race" name="hispanic" value="hispanic">
-                      <label for="hispanic">Hispanic</label>
-                      <br>
-                    <input type="checkbox" id="race" name="pacific islander" value="pacific islander">
-                      <label for="pacific islander">Pacific Islander</label>
-                    <input type="checkbox" id="race" name="white" value="white">
-                        <label for="white">White</label>
-                        <br>
-                    <input type="checkbox" id="race" name="other" value="other">
-                        <label for="other">Other</label>
-                        <br>
-                    </p>
-
-                  <p><b>What do you do in the two to three hours immediately after school?</b>
-                    <br>
-                    <textarea rows="4" cols="50" id="afterschool" name="afterschool"  maxlength="150"></textarea>
-                  </p>
-
-                  <p><b>How do you feel about where you are and what you're doing after afterschool?</b>
-                    <br>
-                    <textarea rows="4" cols="50" id="feel" name="feel" maxlength="150"></textarea><br><br>
-                  </p>
-
-                <p><input type="submit" id="submit" value="FINISHED!" ></p>
-
+              <input type="submit" id="submit" value="FINISHED!" >
             </form>
           </div>
-          <!-- <div class="modal-footer">
-            <p><button><input type="submit">FINISHED!</button></p>
-          </div> -->
         </div>
-
       </div>
 
 </body>
-    <!-- <script src="demoform.js"></script> -->
 
 <script src="touchdraw.js"></script>
 

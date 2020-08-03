@@ -167,10 +167,12 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
     var drawControlGreen = new L.Control.Draw(
       {
         position: 'topleft',
+        featureGroup: greenDrawnItems,
         draw: {
             polylineGreen: {
                 metric: false,
                 showArea: false,
+                featureGroup: greenDrawnItems,
                 shapeOptions: {
                   color: 'green'
                 }
@@ -178,6 +180,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
             polygonGreen: {
                 allowIntersection: false,
                 showLength: false,
+                featureGroup: greenDrawnItems,
                 drawError: {
                     color: '#b00b00',
                     timeout: 1000
@@ -196,7 +199,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
             remove: false
         }
     });
-    // map.addControl(drawControlGreen);
+    map.addControl(drawControlGreen);
 
     map.addEventListener("draw:created", function(green) {
         green.layer.addTo(greenDrawnItems);
@@ -255,6 +258,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
 
        var drawControlBlue = new L.Control.Draw({
            position: 'topleft',
+           featureGroup: bluedrawnItems,
            draw: {
                polyline: false,
                markerBlue: true,
@@ -301,7 +305,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
        });
 
 
-
+var color = drawControlGreen
 
 
 
@@ -487,48 +491,28 @@ $("form :input").change(function() {
 });
 
 
-
-
-
-
-    //
-    // // Submit data to the PHP using a jQuery Post method
-    // var submitToProxy = function(q){
-    //   $.post("Fresh/touchdraw/AMP_Tool/php/callProxy.php", { // <--- Enter the path to your callProxy.php file here
-    //     qurl:q,
-    //     cache: false,
-    //     timeStamp: new Date().getTime()
-    //   }, function(data) {
-    //     console.log(data);
-    //     refreshLayer();
-    //   })
-    // };
-
-// Set data
-// how to do it for each dranItem? just repeat the function?
-
-
 function setData() {
 
     // Get user name and description
     let enteredSchool = document.getElementById("school").value;
-    // let enteredAge = document.getElementById("age").value;
+    let enteredAge = document.getElementById("age").value;
     let enteredGender = document.getElementById("gender").value;
     let enteredRace = document.getElementById("race").value;
     let enteredAfterschool = document.getElementById("afterschool").value;
     let enteredFeel = document.getElementById("feel").value;
-    let enteredColor = "green"
+    // if (featureGroup == greenDrawnItems){
+           let enteredColor = "green"
     // For each drawn layer
     greenDrawnItems.eachLayer(function(greenLayer) {
 
         // Create SQL expression to insert layer
             let drawing = JSON.stringify(greenLayer.toGeoJSON().geometry);
             let sql =
-                "INSERT INTO amp_tool (the_geom, school, gender, race, after_school, feel, color) " +
+                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel, color) " +
                 "VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
                 drawing + "'), 4326), '" + //4326 WGS84 projection
                 enteredSchool + "', '" +
-                // enteredAge + "', '" +
+                enteredAge + "', '" +
                 enteredGender + "', '" +
                 enteredRace + "', '" +
                 enteredAfterschool + "', '" +
