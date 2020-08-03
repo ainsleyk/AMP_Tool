@@ -1,5 +1,5 @@
 var map = L.map('map').setView([47.217901, -122.427402],
-  13);
+  14);
   L.tileLayer('https://api.mapbox.com/styles/v1/ainsleykm/cka71ldlz0fu91itjnm24f0tg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWluc2xleWttIiwiYSI6ImNrMmt1cDhnaTAwZDgzY2xrcW1zamIxNGgifQ.-0f1V1moN7hnx8mzPD7hxQ', {
     attribution: 'Map data &copy; Mapbox',
         minZoom: 13,
