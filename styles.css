@@ -94,6 +94,18 @@ input[type=submit]{
   margin: 3px 1.5px;
 }
 
+[type=button]{
+  background-color: #4CAF50;
+  border: solid;
+  border-color: white;
+  color: white;
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 22px;
+  padding: 8px 24px;
+  text-decoration: none;
+  margin: 3px 1.5px;
+}
+
 #myBtn{
     display: flex;
     align-items: center;

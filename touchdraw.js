@@ -13,8 +13,15 @@ map.bounds = [],
      [47.207077,-122.421508]
    ]);
 
+
+// Open Start Modl on load
+   $(document).ready(function(){
+         $('#openModal').modal({
+             show: true
+         });
+     });
+
 // to change the toolbar colors
-/*this command relies on jQuery, so a link to that library must be included in the index.html*/
    $(function () {
 
    /*Creating classes for new colors. These are created by extending the L.Draw.Polygon (or .Polyline etc.) objects.*/
@@ -25,7 +32,7 @@ map.bounds = [],
            L.Draw.Feature.prototype.initialize.call(this, map, options);
        }
    });
-   //Note: This creates the class, but the class is not yet defined in the CSS or called in the JavaScript. Those changes need to happen below before the button will appear green.
+   //Note: This creates the class, but the class is not yet defined in the CSS or called in the JavaScript.
    L.Draw.PolylineGreen = L.Draw.Polyline.extend({
        initialize: function (map, options) {
            this.type = 'polylineGreen';
@@ -167,20 +174,16 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
     var drawControlGreen = new L.Control.Draw(
       {
         position: 'topleft',
-        featureGroup: greenDrawnItems,
         draw: {
             polylineGreen: {
-                metric: false,
-                showArea: false,
-                featureGroup: greenDrawnItems,
+              showLength: false,
                 shapeOptions: {
                   color: 'green'
                 }
             },
             polygonGreen: {
-                allowIntersection: false,
+                allowIntersection: true,
                 showLength: false,
-                featureGroup: greenDrawnItems,
                 drawError: {
                     color: '#b00b00',
                     timeout: 1000
@@ -201,6 +204,8 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
     });
     map.addControl(drawControlGreen);
 
+
+// Listener for ALL featuregroups
     map.addEventListener("draw:created", function(green) {
         green.layer.addTo(greenDrawnItems);
         greenDrawnItems.eachLayer(function(greenLayer) {
@@ -211,43 +216,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
 
 
 
-    // // Function to add the draw control to the map to start editing
-    // function startEdits(){
-    //   if(controlOnMap == true){
-    //     map.removeControl(drawControlGreen);
-    //     controlOnMap = false;
-    //   }
-    //   map.addControl(drawControlGreen);
-    //   controlOnMap = true;
-    // };
-    //
-    // // Function to remove the draw control from the map
-    // function stopEdits(){
-    //   map.removeControl(drawControlGreen);
-    //   controlOnMap = false;
-    // };
-
-    // map.on('draw:created', function (green) {
-    //     var type = green.layerType,
-    //         layer = green.layer;
-    //
-    //     // if (type === 'marker') {
-    //     //     layer.bindPopup('A popup!');
-    //     // }
-    //
-    //     greenDrawnItems.addLayer(layer);
-    // });
-
-    // map.on('draw:edited', function (green) {
-    //     var layers = green.layers;
-    //     var countOfEditedLayers = 0;
-    //     layers.eachLayer(function(layer) {
-    //         countOfEditedLayers++;
-    //     });
-    //     console.log("Edited " + countOfEditedLayers + " layers");
-    // });
-
-// *************************************************************************************************
+ //*****************************************************************************************
 // New Group: BLUE
        var bluedrawnItems = new L.FeatureGroup();
        map.addLayer(bluedrawnItems);
@@ -263,7 +232,7 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
                polyline: false,
                markerBlue: true,
                polygonBlue: {
-                   allowIntersection: false,
+                   allowIntersection: true,
                    showLength: false,
                    drawError: {
                        color: '#b00b00',
@@ -284,29 +253,6 @@ L.drawLocal.draw.toolbar.buttons.markerGreen = 'Mark an area!';
        });
        map.addControl(drawControlBlue);
 
-       map.on('draw:created', function (blue) {
-           var type = blue.layerType,
-               layer = blue.layer;
-
-           if (type === 'marker') {
-               layer.bindPopup('A popup!');
-           }
-
-           bluedrawnItems.addLayer(layer);
-       });
-
-       map.on('draw:edited', function (blue) {
-           var layers = blue.layers;
-           var countOfEditedLayers = 0;
-           layers.eachLayer(function(layer) {
-               countOfEditedLayers++;
-           });
-           console.log("Edited " + countOfEditedLayers + " layers");
-       });
-
-
-var color = drawControlGreen
-
 
 
 // ****************************************************************************
@@ -322,7 +268,7 @@ var color = drawControlGreen
           draw: {
               polyline: false,
               polygonBlack: {
-                  allowIntersection: false,
+                  allowIntersection: true,
                   showLength: false,
                   drawError: {
                       color: '#b00b00',
@@ -344,28 +290,6 @@ var color = drawControlGreen
       });
       map.addControl(drawControlBlack);
 
-      map.on('draw:created', function (black) {
-          var type = black.layerType,
-              layer = black.layer;
-
-          if (type === 'marker') {
-              layer.bindPopup('A popup!');
-          }
-
-          blackDrawnItems.addLayer(layer);
-      });
-
-      map.on('draw:edited', function (black) {
-          var layers = black.layers;
-          var countOfEditedLayers = 0;
-          layers.eachLayer(function(layer) {
-              countOfEditedLayers++;
-          });
-          console.log("Edited " + countOfEditedLayers + " layers");
-      });
-
-
-
 
 // **************************************************************************
 //New Group: RED
@@ -381,14 +305,13 @@ L.drawLocal.draw.toolbar.buttons.polylineRed = 'Trace streets!';
           position: 'topleft',
           draw:  {
               polylineRed: {
-                  metric: false,
-                  showArea: false,
+                  showLength: false,
                   shapeOptions: {
                       color: 'red'
                   }
               },
               polygonRed: {
-                  allowIntersection: false,
+                  allowIntersection: true,
                   showLength: false,
                   drawError: {
                       color: '#b00b00',
@@ -410,48 +333,7 @@ L.drawLocal.draw.toolbar.buttons.polylineRed = 'Trace streets!';
       });
       map.addControl(drawControlRed);
 
-      map.on('draw:created', function (red) {
-          var type = red.layerType,
-              layer = red.layer;
 
-          if (type === 'marker') {
-              layer.bindPopup('A popup!');
-          }
-
-          redDrawnItems.addLayer(layer);
-      });
-
-      map.on('draw:edited', function (red) {
-          var layers = red.layers;
-          var countOfEditedLayers = 0;
-          layers.eachLayer(function(layer) {
-              countOfEditedLayers++;
-          });
-          console.log("Edited " + countOfEditedLayers + " layers");
-      });
-
-
-
-
-// if type or layer == red.layertype log red
-// if that works then if layer == greenDrawnItems? then feature.properties.color= green appeneded in some way
-
-// var allControl = {drawControlGreen, drawControlBlue, drawControlRed, drawControlBlack}
-      // Function to add the draw control to the map to start editing
-      function startEdits(){
-        if(controlOnMap == true){
-          map.removeControl(drawControlGreen);
-          controlOnMap = false;
-        }
-        map.addControl(drawControlGreen);
-        controlOnMap = true;
-      };
-
-      // Function to remove the draw control from the map
-      function stopEdits(){
-        map.removeControl(allControl);
-        controlOnMap = false;
-      };
 
 // Modal and submit
 
@@ -491,6 +373,7 @@ $("form :input").change(function() {
 });
 
 
+// Posting to CARTO
 function setData() {
 
     // Get user name and description
@@ -508,7 +391,7 @@ function setData() {
         // Create SQL expression to insert layer
             let drawing = JSON.stringify(greenLayer.toGeoJSON().geometry);
             let sql =
-                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel, color) " +
+                "INSERT INTO amp_tool (the_geom, school, age, gender, race, after_school, feel) " +
                 "VALUES (ST_SetSRID(ST_GeomFromGeoJSON('" +
                 drawing + "'), 4326), '" + //4326 WGS84 projection
                 enteredSchool + "', '" +
@@ -516,15 +399,8 @@ function setData() {
                 enteredGender + "', '" +
                 enteredRace + "', '" +
                 enteredAfterschool + "', '" +
-                enteredFeel + "', '" +
-                enteredColor + "')";
-              //   submitToProxy(sql);
-              // console.log("Feature has been submitted to the Proxy");
+                enteredFeel + "')";
             console.log(sql);
-
-
-
-
 
             // Send the data
             fetch("https://ainsleyk.carto.com/api/v2/sql?", {
@@ -547,6 +423,8 @@ function setData() {
     });
 };
 
-var form = document.getElementById("myModal");
-function handleForm(event) { event.preventDefault(); }
-form.addEventListener('submit', handleForm);
+
+// Stop page refresh
+// var form = document.getElementById("myModal");
+// function handleForm(event) { event.preventDefault(); }
+// form.addEventListener('submit', handleForm);
