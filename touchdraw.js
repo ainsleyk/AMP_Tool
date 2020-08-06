@@ -383,8 +383,6 @@ function setData() {
     let enteredRace = document.getElementById("race").value;
     let enteredAfterschool = document.getElementById("afterschool").value;
     let enteredFeel = document.getElementById("feel").value;
-    // if (featureGroup == greenDrawnItems){
-           let enteredColor = "green"
     // For each drawn layer
     greenDrawnItems.eachLayer(function(greenLayer) {
 
