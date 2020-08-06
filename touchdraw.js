@@ -422,7 +422,7 @@ function setData() {
 };
 
 
-// Stop page refresh
+// Uncomment to stop page refresh
 // var form = document.getElementById("myModal");
 // function handleForm(event) { event.preventDefault(); }
 // form.addEventListener('submit', handleForm);
