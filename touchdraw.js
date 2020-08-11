@@ -326,7 +326,7 @@ L.drawLocal.draw.toolbar.buttons.polylineRed = 'Trace streets!';
               marker: false
           },
           edit: {
-              featureGroup: redDrawnItems,
+              featureGroup: greenDrawnItems,
               edit:false,
               remove: true
           }
