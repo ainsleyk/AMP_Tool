@@ -346,9 +346,9 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// Send to set data. Will this take everything tho. Very important Ainsley!
+// Send set data function. Will this take everything
 document.getElementById("submit").addEventListener("click", setData);
-// document.getElementById("submit").addEventListener("click", setDataBlue);???
+
 
 // When the user clicks the button, open the modal
 btn.onclick = function() {
